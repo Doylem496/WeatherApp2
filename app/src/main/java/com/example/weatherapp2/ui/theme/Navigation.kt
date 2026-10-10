@@ -2,6 +2,7 @@
 package com.example.weatherapp2.ui.theme
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -28,8 +29,12 @@ import androidx.compose.material.icons.filled.CalendarViewDay
 import androidx.compose.material.icons.filled.CalendarViewWeek
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.weatherapp2.ForecastThisWeek
 import com.example.weatherapp2.todayWeather
 import com.example.weatherapp2.R
+import com.example.weatherapp2.displayWeeklyForecast
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,12 +72,16 @@ fun Navigation() {
                     icon = {
                         Icon(
                             imageVector = Icons.Default.CalendarViewDay,
-                            contentDescription = "WeatherToday"
+                            contentDescription = "WeatherToday",
+                            modifier = Modifier.size(35.dp)
+
                         )
                     },
-                    label = { Text("Current") },
+                    label = { Text("Current",
+                        modifier = Modifier.size(25.dp)
+                    ) },
                     selected = selectedIndex == 0,
-                    // onClick defines behaviour and allows the index to change when clicked
+                    // onClick defines behavior and allows the index to change when clicked
                     onClick = {
                         selectedIndex = 0
                         navController.navigate(route = "Current") {
@@ -88,10 +97,13 @@ fun Navigation() {
                     icon = {
                         Icon(
                             imageVector = Icons.Default.CalendarViewWeek,
-                            contentDescription = "WeeklyForecast"
+                            contentDescription = "WeeklyForecast",
+                            modifier = Modifier.size(35.dp)
                         )
                     },
-                    label = { Text("ThisWeek") },
+                    label = { Text("This Week",
+                        modifier = Modifier.size(25.dp)
+                        ) },
                     selected = selectedIndex == 1,
                     onClick = {
                         selectedIndex = 1
@@ -117,7 +129,7 @@ fun Navigation() {
                              DisplayWeatherToday(todayWeather)
                         }
                         composable(route = "WeeklyForecast"){
-                            // displayWeeklyForecast()
+                             displayWeeklyForecast(ForecastThisWeek)
                     }
 
                 }
