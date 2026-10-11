@@ -36,7 +36,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeatherApp2Theme {
                  Navigation()
-                 // DisplayWeatherToday(todayWeather)
 
                 }
             }
