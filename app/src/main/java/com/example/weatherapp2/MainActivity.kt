@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,12 +20,16 @@ import com.example.weatherapp2.ui.theme.Navigation
 import com.example.weatherapp2.ui.theme.WeatherApp2Theme
 import com.example.weatherapp2.ui.theme.WeatherToday
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapp2.R
 import com.example.weatherapp2.ui.theme.WeeklyForecast
+import androidx.compose.material3.Surface
+import androidx.compose.ui.text.style.TextAlign
 
 
 class MainActivity : ComponentActivity() {
@@ -43,20 +47,7 @@ class MainActivity : ComponentActivity() {
     }
 
 
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    // test comment
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
 
-// use a data class for current weather and plug in test data
-
-
-// one object
-// placeholder data
 val todayWeather = WeatherToday(
     forecast = "Cloudy",
     tempInCelciusHigh = 15,
@@ -75,6 +66,9 @@ fun DisplayWeatherToday(weather: WeatherToday){
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(100.dp)
+            // .background(Color.White)
+
+
 
 
     )
@@ -131,6 +125,7 @@ val ForecastThisWeek = WeeklyForecast(
 
 
 
+
 @Composable
 fun displayWeeklyForecast(weekly: WeeklyForecast){
 
@@ -144,6 +139,9 @@ fun displayWeeklyForecast(weekly: WeeklyForecast){
     val lows = listOf(weekly.mondayLow, weekly.tuesdayLow, weekly.wednesdayLow, weekly.thursdayLow, weekly.fridayLow,
         weekly.saturdayLow, weekly.sundayLow)
 
+    val daysOfTheWeek = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
+        "Sunday")
+
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -155,10 +153,18 @@ fun displayWeeklyForecast(weekly: WeeklyForecast){
     ) {
 
         for ((index, forecast) in (forecasts.withIndex())){
+            Text(
+                text ="${daysOfTheWeek[index]}",
+                fontSize = (40.sp),
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 26.dp)
+            )
            val imageRes = when (forecast){
                 "Cloudy" -> R.drawable.cloud
-                "Rain" -> R.drawable.raincloud
-                "Sunny" -> R.drawable.sun
+                "Rain" -> R.drawable.raincloud2
+                "Sunny" -> R.drawable.sun2
                 "Windy" -> R.drawable.wind
                "Snow" -> R.drawable.snow
                 else -> R.drawable.exclaimationmark
@@ -173,10 +179,12 @@ fun displayWeeklyForecast(weekly: WeeklyForecast){
                     )
                 Text(
                     text = forecast,
-                    fontSize = (30.sp)
+                    fontSize = (30.sp),
+                    textAlign = TextAlign.Center
                 )
                 Text(
-                    text = "High: ${highs[index]} Low: ${lows[index]}"
+                    text = "High: ${highs[index]} C   Low: ${lows[index]} C",
+                    fontSize = (25.sp)
                 )
 
             }

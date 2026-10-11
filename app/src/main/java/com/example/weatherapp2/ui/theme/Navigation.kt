@@ -35,6 +35,11 @@ import com.example.weatherapp2.ForecastThisWeek
 import com.example.weatherapp2.todayWeather
 import com.example.weatherapp2.R
 import com.example.weatherapp2.displayWeeklyForecast
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.filled.CalendarViewMonth
+import androidx.compose.material.icons.filled.WbSunny
+import androidx.compose.material3.Surface
+import androidx.compose.ui.graphics.Color
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,7 +61,7 @@ fun Navigation() {
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text("Wild Weather")
+                    Text("Wild Weather - Halifax, Nova Scotia ")
                 }
             )
         }, // end top bar
@@ -71,14 +76,15 @@ fun Navigation() {
                 NavigationBarItem(
                     icon = {
                         Icon(
-                            imageVector = Icons.Default.CalendarViewDay,
+                            imageVector = Icons.Default.WbSunny,
                             contentDescription = "WeatherToday",
-                            modifier = Modifier.size(35.dp)
+                            modifier = Modifier.size(45.dp)
 
                         )
                     },
                     label = { Text("Current",
-                        modifier = Modifier.size(25.dp)
+                        fontSize = (30.sp)
+                        //modifier = Modifier.size(50.dp)
                     ) },
                     selected = selectedIndex == 0,
                     // onClick defines behavior and allows the index to change when clicked
@@ -96,13 +102,14 @@ fun Navigation() {
                 NavigationBarItem(
                     icon = {
                         Icon(
-                            imageVector = Icons.Default.CalendarViewWeek,
+                            imageVector = Icons.Default.CalendarViewMonth,
                             contentDescription = "WeeklyForecast",
-                            modifier = Modifier.size(35.dp)
+                            modifier = Modifier.size(45.dp)
                         )
                     },
                     label = { Text("This Week",
-                        modifier = Modifier.size(25.dp)
+                        fontSize = (30.sp)
+                        //modifier = Modifier.size(55.dp)
                         ) },
                     selected = selectedIndex == 1,
                     onClick = {
@@ -119,22 +126,27 @@ fun Navigation() {
             }
         }
     ) { innerPadding ->
-                    NavHost(
-                        navController = navController,
-                        startDestination = "Current",
-                        modifier = Modifier.padding(innerPadding)
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = Color.White
+        ) {
 
-                    ){
-                        composable(route = "Current"){
-                             DisplayWeatherToday(todayWeather)
-                        }
-                        composable(route = "WeeklyForecast"){
-                             displayWeeklyForecast(ForecastThisWeek)
-                    }
+            NavHost(
+                navController = navController,
+                startDestination = "Current",
+                modifier = Modifier.padding(innerPadding)
 
+            ) {
+                composable(route = "Current") {
+                    DisplayWeatherToday(todayWeather)
                 }
+                composable(route = "WeeklyForecast") {
+                    displayWeeklyForecast(ForecastThisWeek)
+                }
+
             }
-}
+        }
+    }}
 
 
 
